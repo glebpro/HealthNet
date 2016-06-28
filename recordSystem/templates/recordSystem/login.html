@@ -1,0 +1,27 @@
+{% load staticfiles %}
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/login.css' %}">
+
+<center>
+		<h1>Login to HealthNet</h1>
+</center>
+<br>
+<center><i>{{ message }}</i></center>
+<div class="profileFormWrapperDiv">
+		<form method="post" action="{% url 'recordSystem:loginPage' %}">
+				{% csrf_token %}
+				<input type="text" name="username" placeholder="Username"/>
+				<br>
+				<input type="password" name="password" placeholder="Password"/>
+				<br>
+				<input type="submit" value="Log In" />
+		</form>
+</div>
+<center>
+		<div id="loginRegister">
+				<p>Don't have an Account?</p>
+				<a href="{% url 'recordSystem:newPatientPage' %}"><div>Register</div></a>
+		</div>
+</center>
+

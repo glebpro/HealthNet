@@ -1,0 +1,40 @@
+/*
+ Login page styling
+	Author(s):Gleb Promokhov
+*/
+body > center > h1{
+  font-family: Open Sans
+}
+body > div > form > input[type="submit"]:nth-child(6){
+	color: white;
+}
+body > div > form > input[type="submit"]:nth-child(6):hover{
+	background-color:grey;
+	cursor:pointer;
+}
+#loginRegister{
+    width:400px !important;
+  padding: 10px;
+  margin: auto;
+  background-color:#F7F7F7;
+  border: 2px solid #e3e3e3;
+  border-radius: 15px;
+  margin-top: 10px;
+}
+#loginRegister > a{
+  text-decoration:none;
+  color:white;
+}
+#loginRegister > p{
+  font-family: Open Sans, sans serif;
+
+}
+#loginRegister > a > div{
+background-color: #C0C0C0;
+  font-family: Open Sans, sans serif;
+  padding: 10px;
+  border-radius: 05px;
+}
+#loginRegister > a > div:hover{
+		background-color: grey;
+}

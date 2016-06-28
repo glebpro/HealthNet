@@ -1,0 +1,131 @@
+/* Body is set to 8px somwhere?? */
+body{
+	margin: 0px;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~TOP CONTROL BAR*/
+#topControlBar{
+  position: absolute;
+  top: 0;
+  left: 0;
+  padding: 10px;
+  width: 98.4%;
+  background-color: #B1E8FA;
+  border-bottom: 3px solid #e3e3e3;
+}
+
+#topControlBarTextRight{
+  margin: 0;
+  width: 225px;
+  float: right;
+}
+
+#topControlBarTextLeft{
+  width: 85px;
+  float: left;
+}
+
+#topControlBarTextLeft > a{
+  text-decoration: none;
+  color: black;
+  font-family: Open Sans, san serif;
+  font-size: 20px;
+  margin: 0px;
+}
+
+#topControlBarTextLeft > a > h3{
+  margin: 0px;
+  padding: 10px;
+  font-family: Open Sans, san serif;
+}
+
+#topControlBarTextRight > a{
+    text-decoration: none;
+    color: blue;
+}
+
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~PAGE BODY*/
+#pageBody{
+  position: absolute;
+  width: 98.4%;
+  height: 1000px;
+  margin-top: 75px;
+  padding: 10px;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~PROFILE FORM*/
+.profileFormWrapperDiv{
+  width: 400px;
+  margin: auto;
+  padding: 10px;
+  background-color: #F7F7F7;
+  border: 2px solid #e3e3e3;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+.profileFormWrapperDiv > form{
+  margin-bottom: 0px;
+}
+.profileFormWrapperDiv > form > label{
+  font-family: Open Sans, sans serif;
+}
+.profileFormWrapperDiv > form > input, textarea, select{
+  height: 50px;
+  width: 100%;
+  font-size: 20px;
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+input[type="submit"]:hover{
+  cursor: pointer;
+}
+.moreButton{
+  text-decoration: none
+}
+.moreButton > div{
+  width: 100%;
+  height: 20px;
+  margin: auto;
+  background-color: #C0C0C0;
+  text-align: center;
+  color:white;
+  font-family: Open Sans, sans   serif;
+  border-radius: 5px;
+}
+.deleteButton{
+  text-decoration: none
+}
+.deleteButton > div{
+  width: 100%;
+  height: 20px;
+  margin: auto;
+  background-color: #DF3E3E;
+  text-align: center;
+  color:white;
+  font-family: Open Sans, sans   serif;
+  border-radius: 5px;
+}
+/*~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~HEALTHYBUTTON*/
+.healthyButton{
+  width: 300px;
+  height: 20px;
+  background-color:#C0C0C0;
+  border: 2px solid #C0C0C0;
+  text-align:center;
+  border-radius: 15px;
+  padding: 10px;
+  padding-top: 0px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+}
+.healthyButton:hover{
+  background-color:grey;
+  cursor:pointer;
+}
+.healthyButton > a{
+  text-decoration:none;
+  color:white;
+  font-family: Open Sans, sans serif;
+  font-size:21px;
+}

@@ -1,0 +1,43 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/systemLogsStyles.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<div id="topControlBar">
+        <div id="topControlBarTextLeft">
+            <a href="{% url 'recordSystem:indexPage' %}"><h3>HealthNet</h3></a>
+        </div>
+        <div id="topControlBarTextRight">
+                Currently logged in as: <a href="{% url 'recordSystem:profilePage' username %}">{{ username }}</a>
+                <br>
+                Currently in Hospital: <a href="{% url 'recordSystem:hospitalSelectionPage' %}">{{ currentHospital }}</a>
+                <br>
+                <a href="{% url 'recordSystem:logoutPage' %}">Log Out</a>
+        </div>
+</div>
+<div id="pageBody">
+		<center><h1>System Logs</h1></center>
+		<table cellspacing="0">
+		<tr>
+			<th> Description</th>
+			<th>Created On</th>
+			<th>User</th>
+			<th>Path</th>
+			<th>POST/GET</th>
+			<th>Is secure?</th>
+			<th>From Address</th>
+		</tr>
+		{% for a in logs %}
+			<tr>
+				<td>{{ a.desc }}</td>
+				<td>{{ a.createdAt }}</td>
+				<td>{{ a.requestUser }}</td>
+				<td>{{ a.requestPath }}</td>
+				<td>{{ a.requestMethod }}</td>
+				<td>{{ a.requestSecure }}</td>
+				<td>{{ a.requestAddress }}</td>
+			</tr>
+		{% endfor %}
+		</table> 
+</div>

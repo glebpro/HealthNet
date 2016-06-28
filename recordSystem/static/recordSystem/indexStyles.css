@@ -1,0 +1,130 @@
+#upcomingappointments{
+  width: 640px;
+  padding: 15px;
+  border-radius: 15px;
+  border: 2px solid #E3E3E3;
+  background-color:#F7F7F7;
+}
+#upcomingAppointments > table{
+  width: 640px;
+  font-family: Open Sans, sans serif;
+}
+#upcomingAppointments > h3{
+  font-family: Open Sans, sans serif;
+  margin: 0px;
+  border-bottom: 2px solid black;
+  padding-bottom: 5px;
+}
+#upcomingAppointments > table > tbody > td > tr{
+	border-left: 1px solid black;
+}
+
+#calendar{    
+  width: 400px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #E3E3E3;
+    background-color: #F7F7F7;
+}
+.healthyButton{
+  display: inline-block;
+  
+}
+
+#relevantUsers{
+	width: 400px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #E3E3E3;
+    background-color: #F7F7F7;
+    font-family: Open Sans, sans serif;
+}
+
+#pageBody{
+  max-width: 1280px;
+  min-width: 1280px;
+  margin-left: auto;
+  margin-right: auto;
+  width: 1280px; 
+  position: relative; 
+}
+#upcomingAppointments{
+  float:left;
+}
+#calendar{
+  float: right;
+  margin-right: 25px;
+}
+#relevantUsers{
+  margin-top: 20px;
+  float: left;
+}
+.healthyButton{
+  margin-left: 25px;
+}
+
+
+
+
+
+#Notifications{
+    width: 640px;
+    padding: 15px;
+    border-radius: 15px;
+    border: 2px solid #E3E3E3;
+    background-color: #F7F7F7;
+    float:left;
+    display:block;
+  margin-bottom: 15px;
+}
+#notifications > h3{
+    font-family: Open Sans, sans serif;
+    margin: 0px;
+    border-bottom: 2px solid black;
+    padding-bottom: 5px;
+}
+#buttons{
+  width: 350px;
+  height: auto;
+  float:left;
+}
+#calendar{
+  margin-top: -130px;
+}
+
+
+
+
+
+
+#pageBody{
+  height: auto;
+}
+#leftBox{
+  width: 700px;
+  height: auto;
+  float: left;
+}
+#calendar{
+  margin-top: 0px;
+}
+#buttons{
+  float:right;
+  margin-right: 75px;
+}
+#buttons{
+  margin-right: 75px;
+  width: 100%;
+  margin: 0 auto;
+  margin-bottom: 10px;
+}
+.healthyButton{
+  width: 200px;
+  margin: 0px;
+  font-family: Open Sans, sans serif;
+  color:white;
+  margin-top: 5px;
+}
+
+
+

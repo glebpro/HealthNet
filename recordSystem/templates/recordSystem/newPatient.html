@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/newPatient.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/datetimepicker-master/jquery.datetimepicker.css' %}" >
+<script src="{% static 'recordSystem/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<script>
+    $(function() {
+        $('.birthDatePicker').datetimepicker({
+			timepicker:false,
+			closeOnDateSelect:true,
+			format:'Y-m-d',
+		});
+    });
+</script>
+<center>
+		<h1>Thank you for choosing HealthNet!</h1>
+		<i>Please register a user and provide some basic medical infornmation below</i>
+</center>
+<div class="profileFormWrapperDiv">
+		{% if message %}
+		<center><i>{{ message }}</i></center>
+		{% else %}
+		<form class="profileFormWrapper" action="{% url 'recordSystem:newPatientPage' %}" method="post">
+			{% csrf_token %}
+			{{ userForm }}
+			{{ profileForm }}
+			<i>*required field</i>
+			<input type="submit" value="Register" />
+		</form>
+		{% endif %}
+</div>

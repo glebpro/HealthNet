@@ -1,0 +1,33 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/newFirstAdministrator.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/datetimepicker-master/jquery.datetimepicker.css' %}" >
+<script src="{% static 'recordSystem/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script>
+
+<script>
+$(function() {
+    $( ".birthDatePicker" ).datetimepicker({
+		timepicker:false,
+		closeOnDateSelect:true,
+		format:'Y-m-d',
+	});
+});
+</script>
+
+<center>
+		<h1>Almost there!</h1>
+		<i>Second, please register an Administrator account</i><br>
+</center>
+<div id="newFirstAdminForm">
+		<form  action="{% url 'recordSystem:newFirstAdministratorPage' %}" method="post">
+			{% csrf_token %}
+			{{ userForm }}
+			{{ profileForm }}
+			<i>*required fields</i>
+			<input type="submit" value="Register" />
+		</form>
+</div>
+

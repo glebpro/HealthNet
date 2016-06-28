@@ -1,0 +1,12 @@
+table{
+margin:auto;
+}
+tr:nth-child(even){
+  background-color: #e3e3e3;
+}
+tr:hover{
+  background-color:grey;
+}
+td{
+  border: 1px solid black;
+}

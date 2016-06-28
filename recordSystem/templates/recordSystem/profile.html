@@ -1,0 +1,152 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/profileStyles.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/datetimepicker-master/jquery.datetimepicker.css' %}" >
+<script src="{% static 'recordSystem/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script>
+<script src="{% static 'recordSystem/globalScripts.js' %}"></script>
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<script>
+		$(function() {
+
+			//to load birthdate picker widget
+			if({{ updateProfile }} == 0){
+				$( ".birthDatePicker" ).datetimepicker({
+					timepicker:false,
+					format: "Y-m-d",
+				});
+			}else{
+				//disable changing of form, not-secure
+				//not supported on all browsers
+				$('.profileFormWrapperDiv > form > input').prop("readOnly", true); 
+			}
+
+		});
+</script>
+
+<div id="topControlBar">
+        <div id="topControlBarTextLeft">
+            <a href="{% url 'recordSystem:indexPage' %}"><h3>HealthNet</h3></a>
+
+        </div>
+        <div id="topControlBarTextRight">
+                Currently logged in as: <a href="{% url 'recordSystem:profilePage' username %}">{{ username }}</a>
+                <br>
+                Currently in Hospital: <a href="{% url 'recordSystem:hospitalSelectionPage' %}">{{ currentHospital }}</a>
+                <br>
+                <a href="{% url 'recordSystem:logoutPage' %}">Log Out</a>
+        </div>
+</div>
+<div id="pageBody">
+	{% if message %}
+	<p>{{ message }}</p>
+	{% else %}
+	{% if viewProfile == 0 %}
+			{% if uType == 4 %}
+			<h1 id="titlePrepend">Administrator :</h1><h1 id="profileTitle">{{ fullName }}</h1>
+			{% elif uType == 3 %}
+			<h1 id="titlePrepend">Doctor :</h1><h1 id="profileTitle">{{ fullName }}</h1>
+			{% elif uType == 2 %}
+			<h1 id="titlePrepend">Nurse :</h1><h1 id="profileTitle">{{ fullName }}</h1>
+			{% else %}
+			<h1 id="titlePrepend">Patient :</h1><h1 id="profileTitle">{{ fullName }}</h1>
+			{% endif %}
+			<br>
+			{% if viewMedical == 0 and uType == 1%}
+			<div id="Prescription">
+				<h3>Prescriptions</h3>
+				{% if prescriptions %}
+				<table>
+					<tr>
+						<th>Drug Name:</th>
+						<th>Dosage:</th>
+						<th>Notes:</th>
+					</tr>
+					{% for a in prescriptions %}
+					<tr>
+						<td>{{ a.name }}</td>
+						<td>{{ a.dosage }}</td>
+						<td>{{ a.notes }}</td>
+						{% if updateMedical == 0 %}
+						<td><a href="{% url 'recordSystem:updatePrescriptionPage' a.id %}">Update</a></td>
+						{% endif %}
+					<tr>
+					{% endfor %}
+				</table>
+				{% else %}
+				<p>Patient has no prescriptions</p>
+				{% endif %}
+			</div>
+			<div id="Tests">
+				<h3>Tests</h3>
+				{% if tests %}
+				<table>
+					<tr>
+						<th>Title:</th>
+						<th>Description:</th>
+						<th>Date:</th>
+					</tr>
+					{% for a in tests %}
+					<tr>
+						<td>{{ a.title }}</td>
+						<td>{{ a.desc }}</td>
+						<td>{{ a.date }}</td>
+						{% if updateMedical == 0 %}
+						<td><a href="{% url 'recordSystem:updateHealthTestPage' a.id %}">Update</a></td>
+							{% if a.released == False and releaseTests == 0%}
+							<td><a href="{% url 'recordSystem:releaseHealthTestPage' a.id profileUsername %}">Release</a></td>
+							{% endif %}
+						{% endif %}
+						{% if viewTests == 0 %}
+						<td><a href="{% url 'recordSystem:updateHealthTestPage' a.id %}">View</a></td>
+						{% endif %}
+					<tr>
+					{% endfor %}
+				</table>
+				{% else %}
+				<p>Patient has no tests</p>
+				{% endif %}
+			</div>
+			{% endif %}
+			<div class="profileFormWrapperDiv">
+				<form action="/profile/{{ profileUsername }}/" method="post">
+					{% csrf_token %}
+					{{ profileForm }}
+					{% if updateProfile == 0 %}
+					<input type="submit" value="Submit">
+					{% endif %}
+				</form>
+			</div>
+			{% if updateProfile == 0 or viewMedical == 0 %}
+			<div id="moreOptions">
+					<h2>More Options</h2>
+					{% if updateProfile == 0 %}
+					<a class="deleteButton" href="{% url 'recordSystem:deleteProfilePage' profileUsername %}"><div>Delete Account</div></a>
+					{% endif %}
+					<br>
+					{% if viewMedical == 0 %}
+					<a class="moreButton" href="{% url 'recordSystem:printInfoPage' profileUsername %}">
+						<div style="background-color: #C0C0C0;">Print Info</div>
+					</a>
+					<br>
+					<a class="moreButton" href="{% url 'recordSystem:exportPatientInfoPage' profileUsername %}">
+						<div style="background-color: #C0C0C0;">Export Info</div>
+					</a>
+					<br>
+					{% endif %}
+					{% if canTransfer == 0 %}
+					<a class="moreButton"  href="{% url 'recordSystem:transferPage' profileUsername %}">
+						<div style="background-color: #C0C0C0;">Transfer</div>
+					</a>
+					{% endif %}
+			</div>
+			{% endif %}
+	{% else %}
+			You do not have the permissions to view this users profile.
+	{% endif %}
+	{% endif %}
+</div>
+

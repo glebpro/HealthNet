@@ -1,0 +1,33 @@
+
+body > center > h1{
+  font-family: Open Sans, san serif;
+}
+#newFirstAdminForm{
+  width: 400px;
+  margin: auto;
+  padding: 10px;
+  background-color: #F7F7F7;
+  border: 2px solid #e3e3e3;
+  border-radius: 15px;
+  margin-top: 20px;
+}
+#newFirstAdminForm > form{
+  margin-bottom: 0px;
+}
+#newFirstAdminForm > form > label{
+  font-family: Open Sans, sans serif;
+}
+#newFirstAdminForm > form > input{
+  height: 50px;
+  width: 100%;
+  font-size: 20px;
+  border: 1px solid #e3e3e3;
+  border-radius: 5px;
+  padding: 10px;
+  margin-top: 5px;
+  margin-bottom: 5px;
+}
+#newFirstAdminForm > form > input[type="submit"]:nth-child(24):hover{
+  background-color:grey;
+  cursor:pointer;
+}

@@ -1,0 +1,7 @@
+body > center > h1{
+  font-family: Open Sans, san serif;
+}
+body > div.profileFormWrapperDiv > form > input[type="submit"]:nth-child(36):hover{
+  background-color:grey;
+  cursor:pointer;
+}

@@ -1,0 +1,55 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/newFirstAdministrator.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/datetimepicker-master/jquery.datetimepicker.css' %}" >
+<script src="{% static 'recordSystem/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script>
+
+
+<script>
+    $(function() {
+		if({{ isPatient }} == 1){
+        $('.dateInput').datetimepicker({
+			timepicker:false,
+			format:'Y-m-d',
+		});
+		}else{
+			$(".profileFormWrapperDiv > form > input").prop("readOnly", true);
+		}
+	});
+</script>
+
+<div id="topControlBar">
+        <div id="topControlBarTextLeft">
+            <a href="{% url 'recordSystem:indexPage' %}"><h3>HealthNet</h3></a>
+
+        </div>
+        <div id="topControlBarTextRight">
+                Currently logged in as: <a href="{% url 'recordSystem:profilePage' username %}">{{ username }}</a>
+                <br>
+                Currently in Hospital: <a href="{% url 'recordSystem:hospitalSelectionPage' %}">{{ currentHospital }}</a>
+                <br>
+                <a href="{% url 'recordSystem:logoutPage' %}">Log Out</a>
+        </div>
+</div>
+
+
+<div id="pageBody">
+    <div class="profileFormWrapperDiv">
+		<form action="/healthTest/{{ testID }}/" method="post" enctype="multipart/form-data">
+			{% csrf_token %}
+			{{ testform }}
+			{% if isPatient == 1 %}
+			<input type="submit" value="Submit" />
+			{% endif %}
+		</form>
+		{% if isPatient == 1 %}
+        <a class="deleteButton" href="{% url 'recordSystem:deleteHealthTestPage' testID %}"><div>Delete</div></a>
+		{% endif %}
+    </div>
+</div>
+
+
+

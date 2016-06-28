@@ -1,0 +1,71 @@
+<style type="text/css">
+h3{
+display:inline;
+}
+p{
+  display:inline;
+}
+@media print{
+	#how{
+		display:none;
+	}
+}
+</style>
+<i id="how">To print this page, rightclick anywhere on the page and select 'print'.</i>
+<h1 style='border-bottom: 2px solid black;'>Medical Record<h1>
+<h1>{{ p }}</h1>
+<hr>
+<h2>Info</h2>
+<h3>Birth Date:</h3><p>{{ p.birthDate }}</p><br>
+<h3>Health Insurance Number:</h3><p>{{ p.healthNumber }}</p><br>
+<h3>Address:</h3><p>{{ p.address }}</p><br>
+<h3>Email:</h3><p>{{ p.email }}</p><br>
+<h3>Phone Number:</h3><p>{{ p.phoneNumber }}</p><br>
+<h3>Emergency Contact:</h3><p>{{ p.emergencyContact }}</p><br>
+<br>
+<h2>Health Information<h2>
+<h3>Primary Care Provider:</h3><p>{{ p.primaryCareProvider }}</p>
+{% if pcpemail %}
+<i> email: {{ pcpemail }}</i>
+{% endif %}<br>
+<h3>Treated At:</h3><p>{{ p.currentHospital }}</p>
+{% if hAdress %}
+<p>, {{ hAdress }}</p>
+{% endif %}<br>
+<h3>Weight:</h3>
+{% if p.weight %}
+<p>{{ p.weight }}</p>. Total in american pounds.
+{% endif %}<br>
+<h3>Height:</h3>
+{% if p.height %}
+<p>{{ p.height }}</p>. Total in inches.
+{% endif %}<br>
+<h3>Eye Color:</h3><p>{{ p.eyeColor }}</p><br>
+<h3>Blood Type:</h3><p>{{ p.bloodType }}</p><br>
+<h3>Prescriptions:</h3><br>
+{% if pres %}
+{% for r in pres %}
+Name:<p>{{ r.name}}</p>
+Dosage:<p>{{ r.dosage }}</p>
+Notes:<p>{{ r.notes }}</p><br>
+{% endfor %}
+{% else %}
+<p>None</p><br>
+{% endif %}
+<h3>Tests:</h3><br>
+{% if tests %}
+{% for r in tests %}
+Name:<p>{{ r.title }}</p>
+Date:<p>{{ r.date }}</p>
+Description:<p>{{ r.desc }}</p>
+Results:<p>{{ r.results }}</p><br>
+{% if r.image != None %}
+Image: <img style="width:20%;height:auto;" src="{{ r.image.url }}"></img>
+{% endif %}
+{% endfor %}
+{% else %}
+<p>None</p><br>
+{% endif %}
+
+This infornmation is confidential and only intended to viewed by patient's doctors or nurses, and the patient themselves.<br>
+Once this page is printed, RITchie's Right Inc does not take responsibility for who sees this infornmation.

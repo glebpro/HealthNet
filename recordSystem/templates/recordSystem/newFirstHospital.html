@@ -1,0 +1,25 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<style type="text/css">
+h1{
+	font-family: Open Sans, sans serif;
+}
+</style>
+<div id="pageBody" style="margin-top: 0px;">
+		<center>
+			<h1>Thank you for choosing HealthNet!</h2>
+			<i>First, please register a hospital</i><br>
+			<i>Or, initilize HealthNet with <a href="{% url 'recordSystem:importSystemInfoPage' %}">a .json import</a></i>
+		</center>
+		<div class="profileFormWrapperDiv">
+				<form action="{% url 'recordSystem:newFirstHospitalPage' %}" method="post">
+					{% csrf_token %}
+					{{ hospitalForm }}
+					<i>* required fields</i>
+					<input type="submit" value="Register" />
+				</form>
+		</div>
+</div>

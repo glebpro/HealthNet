@@ -1,0 +1,48 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="{% static 'recordSystem/globalScripts.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/datetimepicker-master/jquery.datetimepicker.css' %}" >
+<script src="{% static 'recordSystem/datetimepicker-master/build/jquery.datetimepicker.full.min.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<script>
+$(function() {
+    $( ".birthDatePicker" ).datetimepicker({
+		timepicker:false,
+		closeOnDateSelect:true,
+		format:'Y-m-d',
+	});
+});
+</script>
+
+<div id="topControlBar">
+        <div id="topControlBarTextLeft">
+            <a href="{% url 'recordSystem:indexPage' %}"><h3>HealthNet</h3></a>
+        </div>
+        <div id="topControlBarTextRight">
+                Currently logged in as: <a href="{% url 'recordSystem:profilePage' username %}">{{ username }}</a>
+                <br>
+                Currently in Hospital: <a href="{% url 'recordSystem:hospitalSelectionPage' %}">{{ currentHospital }}</a>
+                <br>
+                <a href="{% url 'recordSystem:logoutPage' %}">Log Out</a>
+        </div>
+</div>
+<div id="pageBody">
+		<div class="profileFormWrapperDiv">
+				{% if message %}
+				<center><i>{{ message }}</i></center>
+				{% else %}
+				<form  action="{% url 'recordSystem:newDoctorPage' %}" method="post">
+					{% csrf_token %}
+					{{ userForm }}
+					{{ profileForm }}
+					<i>*required field</i>
+					<input type="submit" value="Register" />
+				</form>
+				{% endif %}
+		</div>
+</div>
+
+

@@ -1,0 +1,26 @@
+{% load staticfiles %}
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+<style type="text/css">
+body > center > h1{
+  font-family:Open Sans, sans serif;
+}
+#newFirstAdminForm > form{
+  width: 300px;
+  margin: 0 auto;
+  margin-top: 25px;
+
+}
+</style>
+<center>
+		<h1>Upload System Data</h1>
+		<i>Please upload a .json file that is in the SWEN261 section 1 standard format.</i><br>
+</center>
+<div id="newFirstAdminForm">
+		<form  action="{% url 'recordSystem:importSystemInfoPage' %}" method="post" enctype=multipart/form-data>
+			{% csrf_token %}
+			{{ form }}
+			<input type="submit" value="Upload" />
+		</form>
+</div>
+

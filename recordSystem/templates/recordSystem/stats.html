@@ -1,0 +1,53 @@
+
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<script src="{% static 'recordSystem/globalScripts.js' %}"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<div id="topControlBar">
+        <div id="topControlBarTextLeft">
+            <a href="{% url 'recordSystem:indexPage' %}"><h3>HealthNet</h3></a>
+        </div>
+        <div id="topControlBarTextRight">
+                Currently logged in as: <a href="{% url 'recordSystem:profilePage' username %}">{{ username }}</a>
+                <br>
+                Currently in Hospital: <a href="{% url 'recordSystem:hospitalSelectionPage' %}">{{ currentHospital }}</a>
+                <br>
+                <a href="{% url 'recordSystem:logoutPage' %}">Log Out</a>
+        </div>
+</div>
+<div id="pageBody">
+	<div id="theStats">
+	<h3>In the whole system:</h3>
+	<p>Most prescribed drug: {{ sMD }}</p>
+	<p>Most issued test: {{ sMT }}</p>
+	<p>Busiest Doctor: 
+	{% if sBD %}
+	<a href="/profile/{{ sBD }}/">{{ sBD }}</a>
+	{% else %}
+	There no doctors in the system.
+	{% endif %}
+	</p>
+	<p>Total Administrators: {{ sAC }}</p>
+	<p>Total Doctors: {{ sDC }}</p>
+	<p>Total Nurses: {{ sNC }}</p>
+	<p>Total Patients: {{ sPC }}</p>
+	<h3>In current hospital:</h3>
+	<p>Most prescribed drug: {{ hMD }}</p>
+	<p>Most issued test: {{ hMT }}</p>
+	<p>Busiest Doctor: 
+	{% if hBD %}
+	<a href="/profile/{{ hBD }}/">{{ hBD }}</a>
+	{% else %}
+	There no doctors in the hospital.
+	{% endif %}
+	</p>
+	<p>Total Administrators: {{ hAC }}</p>
+	<p>Total Doctors: {{ hDC }}</p>
+	<p>Total Nurses: {{ hNC }}</p>
+	<p>Total Patients: {{ hPC }}</p>
+	</div>
+
+</div>

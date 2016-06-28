@@ -1,0 +1,191 @@
+{% load staticfiles %}
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script src="//code.jquery.com/ui/1.11.4/jquery-ui.js"></script>
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/globalStyles.css' %}">
+<link rel="stylesheet" type="text/css" href="{% static 'recordSystem/indexStyles.css' %}">
+<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+
+<link rel='stylesheet' href="{% static 'recordSystem/fullcalendar/fullcalendar.css' %}">
+<link rel='stylesheet' media='print' href="{% static 'recordSystem/fullcalendar/fullcalendar.print.css'%}">
+<script src= "{% static 'recordSystem/fullcalendar/lib/moment.min.js' %}"></script>
+<script src= "{% static 'recordSystem/fullcalendar/fullcalendar.min.js' %}"></script>
+
+<script type='text/javascript'>
+$(document).ready(function() {
+var cleanedTitles = {{ cleanedTitles|safe }}
+var cleanedStartTimes = {{ cleanedStartTimes|safe }}
+var cleanedEndTimes = {{ cleanedEndTimes|safe }}
+var event = [];
+for(var i = 0; i < cleanedTitles.length; i++){
+	event.push({title: cleanedTitles[i] , start: cleanedStartTimes[i], end: cleanedEndTimes[i] })
+}
+var date = new Date();
+var d = date.getDate();
+var m = date.getMonth();
+var y = date.getFullYear();
+var c = $('#calendar').fullCalendar({
+            header:
+				{
+					left: 'prev,next today',
+					center: 'title',
+					right: 'month,agendaWeek,agendaDay'
+				},
+
+            events:event
+      });
+    });
+</script>
+<div id="topControlBar">
+        <div id="topControlBarTextLeft">
+            <a href="{% url 'recordSystem:indexPage' %}"><h3>HealthNet</h3></a>
+        </div>
+        <div id="topControlBarTextRight">
+                Currently logged in as: <a href="{% url 'recordSystem:profilePage' username %}">{{ username }}</a>
+                <br>
+                Currently in Hospital: <a href="{% url 'recordSystem:hospitalSelectionPage' %}">{{ currentHospital }}</a>
+                <br>
+                <a href="{% url 'recordSystem:logoutPage' %}">Log Out</a>
+        </div>
+</div>
+<div id="pageBody">
+		<div id="buttons">
+        <a href="{% url 'recordSystem:newAppointmentPage' %}"><div class="healthyButton">New Appointment</div></a>
+		{% if isDoctor == 1 %}
+        <a href="{% url 'recordSystem:newPrescriptionPage' %}"><div class="healthyButton">New Prescription</div></a>
+        <a href="{% url 'recordSystem:newHealthTestPage' %}"><div class="healthyButton">New Test</div></a>
+        <a href="{% url 'recordSystem:preStatsPage' %}"><div class="healthyButton">System/Hospital Statistics</div></a>
+		{% endif %}
+		{% if isNurse == 1 %}
+        <a href="{% url 'recordSystem:newPrescriptionPage' %}"><div class="healthyButton">New Prescription</div></a>
+        <a href="{% url 'recordSystem:newHealthTestPage' %}"><div class="healthyButton">New Test</div></a>
+		{% endif %}
+		{% if isAdmin == 1 %} <!--- I feel like there is a much better way of doing this -->
+        <a href="{% url 'recordSystem:newPrescriptionPage' %}"><div class="healthyButton">New Prescription</div></a>
+        <a href="{% url 'recordSystem:newHealthTestPage' %}"><div class="healthyButton">New Test</div></a>
+        <a href="{% url 'recordSystem:newAdministratorPage' %}"><div class="healthyButton">New Administrator</div></a>
+        <a href="{% url 'recordSystem:newDoctorPage' %}"><div class="healthyButton">New Doctor</div></a>
+        <a href="{% url 'recordSystem:newNursePage' %}"><div class="healthyButton">New Nurse</div></a>
+        <a href="{% url 'recordSystem:newHospitalPage' %}"><div class="healthyButton">New Hospital</div></a>
+        <a href="{% url 'recordSystem:systemLogsPage' %}"><div class="healthyButton">System Logs</div></a>
+        <a href="{% url 'recordSystem:preStatsPage' %}"><div class="healthyButton">System/Hospital Statistics</div></a>
+        <a href="{% url 'recordSystem:exportSystemInfoPage' %}"><div class="healthyButton">Export System Data</div></a>
+        <a href="{% url 'recordSystem:exportHospitalInfoPage' %}"><div class="healthyButton">Export Hospital Data</div></a>
+		{% endif %}
+		</div>
+		<div id="leftBox">
+		<div id="notifications">
+		<h3>Notifications</h3>
+		{% if notifications %}
+		<table>
+			<tr>
+				<th>On:</th>
+				<th>Description:</th>
+			<tr>
+			{% for n in notifications %}
+			<tr>
+				<td>{{ n.createdAt }}</td>
+				<td>{{ n.desc }}</td>
+				<td><a href="{% url 'recordSystem:readNotificationPage' n.id %}">Remove</a></td>
+			<tr>
+			{% endfor %}
+			<tr><td><a href="{% url 'recordSystem:readAllNotificationsPage' %}">Remove All</a></td></tr>
+		</table>
+		{% else %}
+		<p>You have no new notifications</p>
+		{% endif %}
+		</div>
+		<div id="upcomingAppointments">
+			<h3>Upcoming appointments</h3>
+			<table>
+				<tr>
+					<th>Starts at</th>
+					<th>Ends at</th>
+					{% if isDoctor == 0 %}
+					<th>Doctor</th>
+					{% endif %}
+					{% if isDoctor == 1 or isAdmin == 1 or isNurse == 1 %}
+					<th>Patient</th>
+					{% endif %}
+					<th>Location</th>
+					<th>Description</th>
+				<tr>
+				{% for a in apps %}
+					<tr>
+						<td>{{ a.dateAndTimeStart }}</td>
+						<td>{{ a.dateAndTimeEnd }}</td>
+						{% if isDoctor == 0 %}
+						<td>{{ a.doctor }}</td>
+						{% endif %}
+						{% if isDoctor == 1 or isAdmin == 1 or isNurse == 1 %}
+						<td>{{ a.patient.lastName }}</td>
+						{% endif %}
+						<td>{{ a.location }}</td>
+						<td>{{ a.desc }}</td>
+						<td><a href="{% url 'recordSystem:appointmentsPage' a.id %}">Update</a></td>
+					</tr>
+				{% endfor %}
+			</table>
+		</div>
+		<br>
+		<div id="relevantUsers">
+			<h3>Users in this hospital:</h3>
+			{% if yourPatients %}
+			<i>Your patients:</i>
+			<ul>
+				{% for p in yourPatients %}
+				<li><a href="{% url 'recordSystem:profilePage' p.username %}">{{ p }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% if yourDoctors %}
+			<i>Your doctors:</i>
+			<ul>
+				{% for p in yourDoctors %}
+				<li><a href="{% url 'recordSystem:profilePage' p.username %}">{{ p }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% if yourNurses %}
+			<i>Your nurses:</i>
+			<ul>
+				{% for p in yourNurses %}
+				<li><a href="{% url 'recordSystem:profilePage' p.username %}">{{ p }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% if doctors %}
+			<i>Doctors:</i>
+			<ul>
+				{% for p in doctors %}
+				<li><a href="{% url 'recordSystem:profilePage' p.username %}">{{ p }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% if nurses %}
+			<i>Nurses:</i>
+			<ul>
+				{% for p in nurses %}
+				<li><a href="{% url 'recordSystem:profilePage' p.username %}">{{ p }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% if patients %}
+			<i>Patients:</i>
+			<ul>
+				{% for p in patients %}
+				<li><a href="{% url 'recordSystem:profilePage' p.username %}">{{ p }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+			{% if admins %}
+			<i>Administrators:</i>
+			<ul>
+				{% for p in admins %}
+				<li><a href="{% url 'recordSystem:profilePage' p.username %}">{{ p }}</a></li>
+				{% endfor %}
+			</ul>
+			{% endif %}
+		</div>
+		</div>
+    	<div id="calendar"></div>
+</div>

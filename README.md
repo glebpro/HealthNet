@@ -5,7 +5,7 @@ I lead a team of other students to develop this project. I balanced my team mate
 
 ![Login Page](/login.png?raw=true "Log In Page")
 ![Dashboard](/dashboard.png?raw=true "Main Dashboard")
-![Patient Info](/patientInfo.png?raw=true "Patient Record Page")
+![Patient Info](/patientinfo.png?raw=true "Patient Record Page")
 
 ~~~~LAUNCH INSTRUCTIONS:
 

@@ -1,6 +1,12 @@
 HealthNet is an electronic medical database interface that allows for patients, nurses
 and doctors to organize their appointments, prescriptions and other infornmation across multiple hospitals.
 
+I lead a team of other students to develop this project. I balanced my team mates schedules, strengths and weaknesses in delegating tasks and making sure that all of our code worked together. We took the project from the original customer requests through the process of modeling, designing, and constructing the backend and interface; along with code reviews and plenty of debugging. 
+
+![Login Page](/login.png?raw=true "Log In Page")
+![Dashboard](/dashboard.png?raw=true "Main Dashboard")
+![Patient Info](/patientInfo.png?raw=true "Patient Record Page")
+
 ~~~~LAUNCH INSTRUCTIONS:
 
 To launch the site, navigate to the HealthNet directory (with manage.py in it) and simply run the command: python manage.py runserver
